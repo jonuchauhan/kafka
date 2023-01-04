@@ -1,0 +1,44 @@
+---------------------TOPICS--------------------
+
+----------command to list all the topics --------
+kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+
+----------command to create topic ----------------
+kafka-topics.sh --bootstrap-server localhost:9092 --topic  first_topic --create
+
+
+----------command to create topic with partitions ----------------
+kafka-topics.sh --bootstrap-server localhost:9092 --topic second_topic --create --partitions 3
+
+
+----------command to create topic with replication factor ----------------
+kafka-topics.sh --bootstrap-server localhost:9092 --topic third_topic --create --partitions 3 replication_factor 3
+
+----------describe topic ----------------
+kafka-topics.sh --bootstrap-server localhost:9092 --topic third_topic --describe
+
+
+---------------------PRODUCER--------------------
+
+-------------producer creation -----------------------
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic
+
+-------------producer creation with acks -----------------------
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic --producer-property acks=all
+
+-------------producer creation with keys -----------------------
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic --property "parse.Key=true" --property "Key.seperator=:"
+
+
+---------------------CONSUMER--------------------
+
+----------------consumer creation for data fetch----------------------
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic first_topic
+
+----------------consumer creation for data fetch from beginning----------------------
+kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic first_topic --from-beginning
+
+----------------consumer creation for data with default message formatter ----------------------
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic --formatter kafka.tools.DefaultMessageFormatter --property print.Key=true print.Value=true --from-beginning
+
