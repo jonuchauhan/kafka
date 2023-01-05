@@ -42,3 +42,23 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092  --topic first_topic
 ----------------consumer creation for data with default message formatter ----------------------
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic --formatter kafka.tools.DefaultMessageFormatter --property print.Key=true print.Value=true --from-beginning
 
+
+---------------------CONSUMER GROUP--------------------
+
+----------------consumer group listing----------------------
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+
+----------------consumer group describe----------------------
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my_first_group --describe
+
+----------------consumer group reset offset dry run----------------------
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group --my_first_group --topic first_topic --reset-offsets --to-earliest --dry-run
+
+----------------consumer group reset offset execute----------------------
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group --my_first_group --topic first_topic --reset-offsets --to-earliest --execute
+
+----------------consumer group reset offsets all group----------------------
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group --my_first_group --all-topics --reset-offsets --to-earliest --dry-run
+
+----------------consumer group reset offsets by +2----------------------
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group --my_first_group --all-topics --reset-offsets --shift-by +2  --dry-run
