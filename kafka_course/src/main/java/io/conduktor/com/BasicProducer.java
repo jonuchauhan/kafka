@@ -47,11 +47,5 @@ public class BasicProducer {
         logger.info("Step-7 :- closing producer");
         producer.close();
 
-
-
-
-
-
-
     }
 }
