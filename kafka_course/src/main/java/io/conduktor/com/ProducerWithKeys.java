@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class ProducerWithKeys {
     private static final Logger log = LoggerFactory.getLogger(ProducerWithKeys.class.getName());
-    private static String topic="second_topic";
+    private static String topic="fifth_topic";
     public static void main(String[] args) {
         log.info("setting up properties");
 
@@ -26,13 +26,14 @@ public class ProducerWithKeys {
                 @Override
                 public void onCompletion(RecordMetadata metadata, Exception e) {
                     log.info("Metadata  \n"+
-                            "Topic :-" + metadata.topic() +"\n"+
-                            "Partitions :-"+ metadata.partition() +"\n"+
-                            "Offset :-" + metadata.offset()+"\n"+
-                            "Timestamp :-"+metadata.timestamp()
+                            "Topic : " + metadata.topic() +"\n"+
+                            "Partitions : "+ metadata.partition() +"\n"+
+                            "Offset : " + metadata.offset()+"\n"+
+                            "Timestamp : "+metadata.timestamp()
                             );
                 }
             });
+
 
         }
 

@@ -17,7 +17,7 @@ public class ConsumerWithGracefulShutdown {
     private static final Logger log = LoggerFactory.getLogger(ConsumerWithGracefulShutdown.class.getName());
 
     public static void main(String[] args) {
-        String topic="first_topic";
+        String topic="fifth_topic";
         String group = "third_group";
         log.info("setting up properties");
         Properties properties = new Properties();
