@@ -25,6 +25,7 @@ public class ConsumerWithGracefulShutdown {
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG,group);
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 
 
         KafkaConsumer<String,String> consumer = new KafkaConsumer<String,String>(properties);
@@ -48,7 +49,13 @@ public class ConsumerWithGracefulShutdown {
             while (true) {
                 ConsumerRecords<String, String> consumerrecords = consumer.poll(Duration.ofMillis(100));
                 for (ConsumerRecord<String, String> record : consumerrecords) {
-                    log.info(record.key());
+                    log.info("records \n" +
+                            "Topic :-"+record.topic()+ "\n" +
+                            "Key :-"+record.key()+"\n" +
+                            "Value :-"+record.value() + "\n"+
+                            "Offset :-"+record.offset() + "\n"+
+                            "Partition :-"+record.partition()+"\n"+
+                            "Timestamp :-"+record.timestamp()) ;
                 }
 
             }
