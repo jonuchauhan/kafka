@@ -30,7 +30,11 @@ public class WikimediaChangesProducer {
         properties.setProperty(ProducerConfig.ACKS_CONFIG,"all");
         properties.setProperty(ProducerConfig.RETRIES_CONFIG,Integer.toString(Integer.MAX_VALUE));
 
+        //high throughput settings
 
+        properties.setProperty(ProducerConfig.LINGER_MS_CONFIG,"20");
+        properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG,Integer.toString(30*1024));
+        properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG,"snappy");
 
         log.info("creating a producer");
 
