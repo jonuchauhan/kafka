@@ -1,0 +1,54 @@
+------------first start confluent-schema-registry and confluent-kafka-rest--------------
+
+sudo systemctl start confluent-schema-registry
+sudo systemctl start confluent-kafka-rest
+
+
+--------format ------
+application/vnd.kafka[.embedded_format].[api_version]+[serialization_format]
+
+embedded_format
+avro
+json
+jsonschema
+protobuf
+
+api version
+v2,v3 i.e etc
+
+------data format -------
+{
+"records":[
+{
+"key" : "1",
+"value" : "hello world"
+},
+
+{
+"key" : "2",
+"value" : "hello kafka"
+}
+]
+}
+
+-------example ------
+step 1
+
+curl -X post -H "Content-Type: application/kafka.vnd.json+v2.json" -H "Accept : application/kafka.vnd.json+v2,json"
+--data '{"records":[{"key" : "1","value" : "hello world"},{"key" : "2","value" : "hello kafka"}]}' "https://localhost:8082/topics/rest_proxy_test"
+
+
+---------step 2------
+
+curl -X post -H "Content-Type: application/kafka.vnd.json+v2.json"  --data '{"name" : "new-consumer-instance" , "format" : "json" ,"auto.offset" : "earliest"}' http://localhost:8082/consumers/proxy-consumer
+
+-----step 3--------
+curl -X post -H "Contect-Type: application/kafka.vnd.json+v2.json"  --data '{"topics" :["rest_proxy_test"] }'  url received from step 2 (url of consumer instance)
+
+-----step 4------
+curl -X get "Accept : application/kafka.vnd.json+v2.json"  url received from step 2 (url of cosumer instance)
+
+
+
+
+
