@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'application'
+    id "com.github.davidmc24.gradle.plugin.avro" version "1.3.0"
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://packages.confluent.io/maven/" ; allowInsecureProtocol = true }
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+group 'org.example'
+
+
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13'
+
+    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.6.0'
+
+    implementation group: 'org.apache.avro', name: 'avro', version: '1.11.0'
+    implementation group: 'org.apache.avro', name: 'avro-tools', version: '1.11.0'
+    implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: '6.0.0'
+
+    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'com.thecodinginterface.avro.orders.App'
+}
+
+task generateAvro(type: com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask) {
+    //point plugin to folder with avro schemas
+    source("src/main/resources/schema/avro")
+    //point plugin to folder with generated POJOs
+    outputDir = file("src/main/avro/")
+}
+
+compileJava.source(generateAvro.outputs)
